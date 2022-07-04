@@ -85,9 +85,21 @@ public class HotelDAO implements IHotelDAO {
 		return bookingObjList;
 	}
 
+	// This method return list of service array objects, return type is List<Object[]>
 	@Override
-	public List<ServiceDTO> getAllServicesOfHotel(int hotel_id) {
-		return null;
+	public List<Object[]> getAllServicesOfHotel(int hotel_id) {
+		
+		// Create named query to get all services of hotel and set parameter hotel_id
+		Query query =  entityManager.createNamedQuery("GET_ALL_SERVICES_OF_HOTEL");
+		query.setParameter("hotel_id", hotel_id);
+		
+		// Get the result list
+		List<Object[]> serviceObjList = query.getResultList();
+		
+		logger.info("Inside service dao "+serviceObjList);
+		
+		// Return the list
+		return serviceObjList;
 	}
 
 	// This method returns the list of employee object array, return type is List<Object[]>

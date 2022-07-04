@@ -1,8 +1,9 @@
 package com.entlogics.hotelbookingsystemjpa.service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -196,8 +197,28 @@ public class HotelService implements IHotelService {
 	@Transactional(readOnly=true)
 	public List<ServiceDTO> getAllServicesOfHotel(int hotel_id) {
 		
-		// Delegate the call to hotel dao
-		return hotelDAO.getAllServicesOfHotel(hotel_id);
+		// Create array list of serviceDTO for returning
+		List<ServiceDTO> serviceDTOList = new ArrayList<>();
+		
+		// Call the dao method to get services of hotel
+		List<Object[]> serviceObjList = hotelDAO.getAllServicesOfHotel(hotel_id);
+	
+		logger.info("Inside service of hotel"+serviceObjList);
+		
+		// Loop through all the service array object of list, create ServiceDTO object, set its properties and add it to serviceDTOList
+		for (Object[] service: serviceObjList ) {
+		logger.info("Service test "+Arrays.toString(service));
+		ServiceDTO serviceDTO = new ServiceDTO();
+		
+		serviceDTO.setService_id((int) service[0]);
+		serviceDTO.setService_name((String) service[1]);
+		serviceDTO.setService_price((BigDecimal) service[2]);
+		
+		serviceDTOList.add(serviceDTO);
+		}
+		
+		// Return the list of services
+		return serviceDTOList;	
 	}
 
 	// This service method return list of employees of a hotel

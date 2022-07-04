@@ -21,7 +21,7 @@ public interface IHotelDAO {
 
 	List<Object[]> getAllBookingsOfHotel(int hotel_id);
 
-	List<ServiceDTO> getAllServicesOfHotel(int hotel_id);
+	List<Object[]> getAllServicesOfHotel(int hotel_id);
 
 	List<Object[]> getAllEmployeesOfHotel(int hotel_id);
 
