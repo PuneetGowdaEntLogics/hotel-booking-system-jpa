@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,9 +38,10 @@ public class HotelService implements IHotelService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<HotelDTO> getListOfHotels(String hotel_name) {
-		
-		// If value of hotel_name is null, make it empty string 
-		hotel_name = hotel_name.equals(null) ? "" : hotel_name; 
+				
+		// If hotel_name has value then keep the value else add empty string as value 
+		hotel_name = String.valueOf(hotel_name).equals(hotel_name) ?  hotel_name : ""; 
+				
 		
 		// Get the list of hotel object array by calling getListOfHotels method of hotelDAO
 		List<Object[]> nativeQuery = hotelDAO.getListOfHotels(hotel_name);
@@ -47,20 +49,19 @@ public class HotelService implements IHotelService {
 		// Create List object of HotelDTO to return from Native query
 		List<HotelDTO> hotelDTOListNative = new ArrayList<HotelDTO>();
 
-		
 		// Loop through all the hotel object, type cast into hotel dto fields and add the hotel dto object to list of hotels
-				for (Object[] obj : nativeQuery) {
-					HotelDTO hotelDTO = new HotelDTO();
-					hotelDTO.setHotel_id((int) obj[0]);
-					hotelDTO.setHotel_name((String) obj[1]);
-					hotelDTO.setHotel_location((String) obj[2]);
-					hotelDTO.setHotel_phone((String) obj[3]);
-					hotelDTO.setHotel_email((String) obj[4]);
-					hotelDTO.setHotel_rating((int) obj[5]);
-					hotelDTO.setPet_friendly((boolean) obj[6]);
+		for (Object[] obj : nativeQuery) {
+			HotelDTO hotelDTO = new HotelDTO();
+			hotelDTO.setHotel_id((int) obj[0]);
+			hotelDTO.setHotel_name((String) obj[1]);
+			hotelDTO.setHotel_location((String) obj[2]);
+			hotelDTO.setHotel_phone((String) obj[3]);
+			hotelDTO.setHotel_email((String) obj[4]);
+			hotelDTO.setHotel_rating((int) obj[5]);
+			hotelDTO.setPet_friendly((boolean) obj[6]);
 
-					hotelDTOListNative.add(hotelDTO);
-				}
+			hotelDTOListNative.add(hotelDTO);
+		}
 		
 		// Delegate the call to hotel dao
 		return hotelDTOListNative;

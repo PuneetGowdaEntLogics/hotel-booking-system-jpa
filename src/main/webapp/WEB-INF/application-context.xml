@@ -22,8 +22,6 @@
 	<mvc:annotation-driven />
 
 	<!-- resources mapping -->
-	<mvc:resources location="/resources/"
-		mapping="/resources/**" />
 
 	<!-- post-processors for all standard config annotations -->
 	<context:annotation-config />
