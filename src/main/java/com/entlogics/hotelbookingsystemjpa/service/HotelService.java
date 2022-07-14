@@ -42,7 +42,6 @@ public class HotelService implements IHotelService {
 		// If hotel_name has value then keep the value else add empty string as value 
 		hotel_name = String.valueOf(hotel_name).equals(hotel_name) ?  hotel_name : ""; 
 				
-		
 		// Get the list of hotel object array by calling getListOfHotels method of hotelDAO
 		List<Object[]> nativeQuery = hotelDAO.getListOfHotels(hotel_name);
 		

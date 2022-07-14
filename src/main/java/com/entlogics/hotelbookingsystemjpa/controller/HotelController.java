@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import com.entlogics.hotelbookingsystemjpa.entity.Hotel;
 import com.entlogics.hotelbookingsystemjpa.service.IHotelService;
 
 // This class is a controller that maps the request to methods for getting list of hotels
+@CrossOrigin(origins="*", maxAge=3600)
 @Controller
 @RequestMapping("/api")
 public class HotelController {
